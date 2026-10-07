@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Birthday Memories</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fffaf6;--ink:#3b2430;--muted:#7a6670;--rose:#a63d63;--radius:18px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Playfair Display',Georgia,serif;background:var(--bg);color:var(--ink);overflow-x:hidden}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;height:100vh;min-height:520px;display:flex;align-items:center;color:#fff;overflow:hidden;
+  background:linear-gradient(135deg,#5c2a4d,#a63d63 55%,#d9a441)}
+.hero .slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.6s ease,transform 8s ease;transform:scale(1.05)}
+.hero .slide.on{opacity:1;transform:scale(1.15)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(60,20,50,.65),rgba(60,20,50,.15))}
+.bokeh{position:absolute;border-radius:50%;background:rgba(255,230,150,.35);filter:blur(2px);animation:float 9s ease-in-out infinite;z-index:1}
+@keyframes float{50%{transform:translateY(-30px) scale(1.08);opacity:.6}}
+.spark{position:absolute;z-index:1;color:#fff;animation:twinkle 3s ease-in-out infinite;pointer-events:none}
+@keyframes twinkle{0%,100%{opacity:.1;transform:scale(.6)}50%{opacity:1;transform:scale(1.2)}}
+.hero-content{position:relative;z-index:2;padding:0 8vw;max-width:760px}
+.eyebrow{font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;opacity:.9;margin-bottom:14px}
+.hero h1{font-weight:500;font-size:clamp(2rem,5vw,3.4rem);margin-bottom:12px}
+.sub{display:flex;align-items:center;gap:12px;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:14px}
+.sub::before{content:"";width:34px;height:1px;background:#fff}
+.hero p.msg{font-size:.95rem;line-height:1.7;max-width:430px;opacity:.92;margin-bottom:26px}
+.hero-content>*{opacity:0;transform:translateY(20px);animation:rise .9s forwards}
+.hero-content>*:nth-child(2){animation-delay:.2s}.hero-content>*:nth-child(3){animation-delay:.4s}
+.hero-content>*:nth-child(4){animation-delay:.6s}.hero-content>*:nth-child(5){animation-delay:.8s}
+@keyframes rise{to{opacity:1;transform:none}}
+.btn{font-family:inherit;display:inline-flex;gap:8px;align-items:center;background:#fff;color:var(--rose);border:0;padding:11px 22px;border-radius:30px;
+  font-size:.82rem;cursor:pointer;transition:transform .25s,box-shadow .25s,background .25s}
+.btn:hover{transform:translateY(-3px);box-shadow:0 10px 25px rgba(0,0,0,.25);background:#fff0f5}
+.btn .arr{animation:bounce 1.4s infinite}
+@keyframes bounce{50%{transform:translateY(4px)}}
+.dots{position:absolute;bottom:22px;right:30px;z-index:2;display:flex;gap:8px}
+.dots i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.4);cursor:pointer;transition:.3s}
+.dots i.on{background:#fff;width:22px;border-radius:6px}
+
+/* ---------- INTRO ---------- */
+.intro{padding:90px 8vw 40px;max-width:1100px;margin:auto}
+.label{font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;font-weight:600;color:var(--rose)}
+.intro h2{font-weight:500;font-size:1.5rem;margin:14px 0 14px}
+.intro p{color:var(--muted);font-size:.9rem;line-height:1.7;max-width:420px}
+
+/* ---------- TIMELINE ---------- */
+.timeline{position:relative;max-width:1100px;margin:auto;padding:30px 8vw 80px}
+.line{position:absolute;left:calc(8vw + 30px);top:60px;bottom:60px;width:1px;background:#e8dcd8}
+.line b{display:block;width:100%;height:0;background:var(--rose);transition:height .15s}
+.chapter{display:grid;grid-template-columns:60px 1fr;gap:30px;margin-bottom:110px}
+.num{position:relative;z-index:1;width:60px;height:60px;border-radius:50%;display:grid;place-items:center;font-size:.8rem;
+  background:var(--c1);color:var(--c2);transition:transform .4s,box-shadow .4s;position:sticky;top:30px}
+.chapter.seen .num{animation:pop .7s}
+@keyframes pop{0%{transform:scale(.3)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+.num:hover{transform:scale(1.12) rotate(8deg);box-shadow:0 8px 20px rgba(0,0,0,.12)}
+.chapter .label{color:var(--c2)}
+.chapter h3{font-weight:600;font-size:1rem;margin:12px 0 10px}
+.chapter .txt{font-size:.78rem;line-height:1.7;color:var(--muted);max-width:480px;margin-bottom:28px}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .9s,transform .9s}
+.chapter.seen .reveal{opacity:1;transform:none}
+.chapter.seen .tile:nth-child(2){transition-delay:.15s}.chapter.seen .tile:nth-child(3){transition-delay:.3s}
+
+.grid{display:grid;gap:18px;grid-auto-rows:270px}
+.grid.a{grid-template-columns:1fr 1fr}.grid.b{grid-template-columns:1fr 1.7fr}
+.grid.a .tile:nth-child(1){grid-row:span 2}.grid.b .tile:nth-child(3){grid-row:span 2;grid-column:2;grid-row:1/3}
+.grid.b .tile:nth-child(1){grid-column:1;grid-row:1}.grid.b .tile:nth-child(2){grid-column:1;grid-row:2}
+.tile{position:relative;border-radius:var(--radius);overflow:hidden;cursor:pointer;
+  background:linear-gradient(135deg,var(--c1),var(--c2));box-shadow:0 12px 30px rgba(80,40,60,.15);transition:opacity .9s,transform .5s,box-shadow .4s}
+.tile:hover{transform:translateY(-6px);box-shadow:0 22px 45px rgba(80,40,60,.25)}
+.tile img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s}
+.tile:hover img{transform:scale(1.08)}
+.tile .zoom{position:absolute;right:12px;top:12px;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.85);display:grid;place-items:center;
+  opacity:0;transform:scale(.6);transition:.3s;font-size:.9rem}
+.tile:hover .zoom{opacity:1;transform:none}
+.video{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#fff;font-size:.75rem;
+  background:linear-gradient(135deg,var(--v1),var(--v2))}
+.video::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 48%,rgba(255,255,255,.2) 49%,transparent 50%)}
+.play{width:40px;height:40px;border:1px solid #fff;border-radius:50%;display:grid;place-items:center;position:relative;transition:transform .3s,background .3s}
+.play::after{content:"";border-left:11px solid #fff;border-top:7px solid transparent;border-bottom:7px solid transparent;margin-left:3px}
+.play::before{content:"";position:absolute;inset:-1px;border-radius:50%;border:1px solid #fff;animation:ping 2s infinite}
+@keyframes ping{to{transform:scale(1.7);opacity:0}}
+.video:hover .play{transform:scale(1.15);background:rgba(255,255,255,.25)}
+
+/* ---------- LIGHTBOX / MODAL ---------- */
+.lb{position:fixed;inset:0;background:rgba(30,12,24,.92);z-index:100;display:none;align-items:center;justify-content:center;flex-direction:column;opacity:0;transition:opacity .3s}
+.lb.open{display:flex}.lb.vis{opacity:1}
+.lb img,.lb video,.lb iframe{max-width:88vw;max-height:76vh;border-radius:14px;box-shadow:0 20px 60px #000;animation:zin .4s}
+.lb iframe{width:80vw;height:45vw;max-height:76vh;border:0}
+@keyframes zin{from{opacity:0;transform:scale(.92)}}
+.lb .note{color:#fff;padding:40px;text-align:center;max-width:420px;line-height:1.7;font-size:.9rem}
+.lb button{position:absolute;background:rgba(255,255,255,.12);color:#fff;border:0;width:46px;height:46px;border-radius:50%;font-size:1.3rem;cursor:pointer;transition:.25s}
+.lb button:hover{background:rgba(255,255,255,.3);transform:scale(1.1)}
+.lb .x{top:20px;right:24px}.lb .pv{left:24px;top:50%}.lb .nx{right:24px;top:50%}
+.lb .info{position:absolute;bottom:24px;display:flex;gap:16px;align-items:center;color:#fff;font-size:.8rem}
+.lb .info button{position:static;width:auto;border-radius:20px;padding:8px 16px;font-family:inherit;font-size:.78rem;height:auto}
+
+/* ---------- SLIDESHOW ---------- */
+.gallery{max-width:1000px;margin:0 auto;padding:20px 8vw 60px}
+.gallery h2{font-weight:500;font-size:1.5rem;margin:14px 0 26px}
+.show{position:relative;aspect-ratio:16/10;border-radius:22px;overflow:hidden;background:linear-gradient(135deg,#e8a0b4,#a63d63);box-shadow:0 25px 60px rgba(80,40,60,.25)}
+.layer{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.1s ease}
+.layer.on{opacity:1;animation:kb 7s ease-out forwards}
+@keyframes kb{from{transform:scale(1)}to{transform:scale(1.08)}}
+.show button{position:absolute;z-index:3;border:0;background:rgba(255,255,255,.85);color:var(--rose);width:44px;height:44px;border-radius:50%;cursor:pointer;font-size:1.3rem;
+  opacity:0;transition:.3s}
+.show:hover button,.show:focus-within button{opacity:1}
+.show button:hover{transform:scale(1.12);background:#fff}
+.sp{left:16px;top:50%;margin-top:-22px}.sn{right:16px;top:50%;margin-top:-22px}.pp{right:16px;bottom:22px;font-size:.8rem!important}
+.cnt{position:absolute;z-index:3;left:18px;bottom:20px;color:#fff;font-size:.8rem;background:rgba(0,0,0,.35);padding:5px 12px;border-radius:20px}
+.bar{position:absolute;z-index:3;left:0;right:0;bottom:0;height:4px;background:rgba(255,255,255,.25)}
+.bar b{display:block;height:100%;width:0;background:#fff}
+.bar b.run{animation:prog var(--dur,4s) linear forwards}
+@keyframes prog{to{width:100%}}
+.thumbs{display:flex;gap:10px;overflow-x:auto;padding:16px 4px;scroll-behavior:smooth;scrollbar-width:thin}
+.thumbs div{flex:0 0 78px;height:56px;border-radius:10px;background-size:cover;background-position:center;background-color:#e8c4d0;cursor:pointer;opacity:.55;transition:.3s}
+.thumbs div:hover{opacity:.9;transform:translateY(-3px)}
+.thumbs div.on{opacity:1;outline:3px solid var(--rose);outline-offset:2px}
+
+/* ---------- MUSIC BUTTON ---------- */
+#music{position:fixed;left:22px;bottom:22px;z-index:90;display:flex;align-items:center;gap:10px;border:0;cursor:pointer;font-family:inherit;
+  background:var(--rose);color:#fff;padding:12px 20px 12px 16px;border-radius:40px;font-size:.8rem;box-shadow:0 10px 28px rgba(166,61,99,.4);transition:transform .25s,box-shadow .25s}
+#music:hover{transform:translateY(-4px);box-shadow:0 16px 34px rgba(166,61,99,.5)}
+#music .eq{display:flex;gap:3px;align-items:flex-end;height:16px}
+#music .eq i{width:3px;height:30%;background:#fff;border-radius:2px}
+#music.playing .eq i{animation:eq .9s ease-in-out infinite}
+#music.playing .eq i:nth-child(2){animation-delay:.2s}#music.playing .eq i:nth-child(3){animation-delay:.4s}#music.playing .eq i:nth-child(4){animation-delay:.1s}
+@keyframes eq{50%{height:100%}}
+footer{text-align:center;padding:60px 20px 80px;color:var(--muted);font-size:.85rem}
+#top{position:fixed;right:22px;bottom:22px;width:44px;height:44px;border-radius:50%;border:0;background:var(--rose);color:#fff;cursor:pointer;
+  opacity:0;pointer-events:none;transition:.3s;font-size:1.1rem}
+#top.on{opacity:1;pointer-events:auto}#top:hover{transform:translateY(-4px)}
+canvas#confetti{position:fixed;inset:0;pointer-events:none;z-index:200}
+
+@media(max-width:700px){
+  .chapter{grid-template-columns:44px 1fr;gap:16px}.num{width:44px;height:44px}.line{left:calc(8vw + 22px)}
+  .grid{grid-auto-rows:200px}
+  .lb .pv{left:8px}.lb .nx{right:8px}
+}
+</style>
+</head>
+<body>
+
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <div class="eyebrow">A birthday story, lovingly told</div>
+    <h1 id="name">Tanya </h1>
+    <div class="sub">Celebrating tanu's birthday</div>
+    <p class="msg" id="msg"></p>
+    <div><button class="btn" id="start">Start the memories <span class="arr">↓</span></button></div>
+  </div>
+  <div class="dots" id="heroDots"></div>
+</section>
+
+<section class="intro" id="intro">
+  <div class="label">The Chapters</div>
+  <h2>A life in beautiful little moments.</h2>
+  <p>Fill each chapter with the photographs, videos, memories, and milestones that feel most like her.</p>
+</section>
+
+<section class="timeline" id="timeline"><div class="line"><b id="fill"></b></div></section>
+<section class="gallery" id="gallery">
+  <div class="label">The Slideshow</div>
+  <h2>Every moment, one by one.</h2>
+  <div class="show" id="show">
+    <div class="layer" id="l1"></div><div class="layer" id="l2"></div>
+    <button class="sp" id="sp" aria-label="Previous">‹</button>
+    <button class="sn" id="sn" aria-label="Next">›</button>
+    <button class="pp" id="pp" aria-label="Pause">❚❚</button>
+    <div class="cnt" id="cnt"></div>
+    <div class="bar"><b id="bar"></b></div>
+  </div>
+  <div class="thumbs" id="thumbs"></div>
+</section>
+
+<footer id="foot"></footer>
+<button id="top" aria-label="Back to top">↑</button>
+
+<audio id="bgm" loop preload="auto"></audio>
+<button id="music" aria-label="Toggle music"><span class="eq"><i></i><i></i><i></i><i></i></span><span id="mtxt">Play music</span></button>
+
+<div class="lb" id="lb">
+  <button class="x" id="lbx">✕</button><button class="pv" id="lbp">‹</button><button class="nx" id="lbn">›</button>
+  <div id="stage"></div>
+  <div class="info"><span id="count"></span><button id="auto">▶ Slideshow</button></div>
+</div>
+<canvas id="confetti"></canvas>
+
+<script>
+/* =====================  EDIT YOUR CONTENT HERE  ===================== */
+const CONFIG = {
+  name: "Tanya",
+  message: "wishing you a very happy birthday my anvi — want to make your this day very special ,always be happy .",
+  footer: "Happy Birthday! ♥ Made with love",
+  // background music file (mp3)
+  music: "music/song.mp3",
+  // slideshow photos: auto-generates images/photos/photo1.jpg ... photo30.jpg
+  // change 30 to your photo count, or replace with your own list of file names
+  photos: Array.from({length:30},(_,i)=>`images/photos/photo${i+1}.jpg`),
+  slideSeconds: 4,
+  // hero background slideshow (put image paths here; leave [] for gradient)
+  heroImages: ["images/hero1.jpg","images/hero2.jpg","images/hero3.jpg"],
+  chapters: [
+    {label:"The Beginning", title:"Childhood", layout:"a", c1:"#fbe4e8", c2:"#a63d63", v1:"#c06082", v2:"#e8a0b4",
+     text:"the earliest snapshots: favourite toys, tiny adventures, family laughter, and the moments that first made her sparkle.",
+     images:["images/child1.jpg","images/child2.jpg"], videoLabel:"add a child video ", video:"videos/kid.mp4"},
+    {label:"Growing Curious", title:"School years", layout:"b", c1:"#f7e8d4", c2:"#a8742a", v1:"#b98a48", v2:"#e5c27c",
+     text:"school-day smiles, first friendships, proud achievements, handwritten notes, and all the lessons that shaped her.",
+     images:["images/school1.jpg","images/school2.jpg"], videoLabel:"Add a school video", video:"videos/child.mp4"},
+    {label:"Finding Her Own Voice", title:"Teenage years", layout:"a", c1:"#e6e0f2", c2:"#6f4f9a", v1:"#8b6bb0", v2:"#bb98d2",
+     text:"the music, friendships, dreams, inside jokes, creative experiments, and unforgettable days that defined these years.",
+     images:["images/teen1.jpg","images/teen2.jpg"], videoLabel:"Add a teen video", video:"videos/teen.mp4"},
+    {label:"Moments To Celebrate", title:"Milestones", layout:"b", c1:"#dcefe8", c2:"#2f6f61", v1:"#4a8576", v2:"#8fbfb2",
+     text:"the proudest moments, brave beginnings, personal wins, meaningful places, and all the times she made her dreams real.",
+     images:["images/mile1.jpg","images/mile2.jpg"], videoLabel:"add", video:"videos/mile.mp4"},
+    {label:"Still Becoming", title:"Adulthood", layout:"a", c1:"#f6e0da", c2:"#a8503f", v1:"#b86a58", v2:"#e0a090",
+     text:"the person she is today: her confidence, her joys, the people she loves, and every new adventure still ahead.",
+     images:["images/adult1.jpg","images/adult2.jpg"], videoLabel:"add", video:"videos/adult.mp4"}
+  ]
+};
+/* ==================================================================== */
+
+const $ = (s,r=document)=>r.querySelector(s);
+$('#name').textContent = CONFIG.name;
+$('#msg').textContent = CONFIG.message;
+$('#foot').textContent = CONFIG.footer;
+
+/* ---- hero decorations ---- */
+const hero = $('#hero');
+for(let i=0;i<14;i++){
+  const b=document.createElement('div'); b.className='bokeh';
+  const s=40+Math.random()*110;
+  Object.assign(b.style,{width:s+'px',height:s+'px',left:Math.random()*100+'%',top:Math.random()*100+'%',
+    animationDelay:Math.random()*6+'s',animationDuration:7+Math.random()*6+'s'});
+  hero.appendChild(b);
+}
+for(let i=0;i<10;i++){
+  const s=document.createElement('div'); s.className='spark'; s.textContent=Math.random()>.5?'♥':'✦';
+  Object.assign(s.style,{left:Math.random()*100+'%',top:Math.random()*100+'%',fontSize:8+Math.random()*10+'px',animationDelay:Math.random()*3+'s'});
+  hero.appendChild(s);
+}
+
+/* ---- hero slideshow ---- */
+const slides = CONFIG.heroImages.map((src,i)=>{
+  const d=document.createElement('div'); d.className='slide'; d.style.backgroundImage=`url('${src}')`;
+  hero.insertBefore(d,hero.firstChild); return d;
+}).reverse();
+const dotsBox=$('#heroDots'); let hi=0, ht;
+slides.forEach((_,i)=>{const d=document.createElement('i'); d.onclick=()=>{go(i);restart()}; dotsBox.appendChild(d)});
+function go(i){hi=i;slides.forEach((s,k)=>s.classList.toggle('on',k===i));[...dotsBox.children].forEach((d,k)=>d.classList.toggle('on',k===i))}
+function restart(){clearInterval(ht);ht=setInterval(()=>go((hi+1)%slides.length),5000)}
+if(slides.length){go(0);restart()}
+
+/* ---- build chapters ---- */
+const tl=$('#timeline'); const galleries=[];
+CONFIG.chapters.forEach((c,ci)=>{
+  const sec=document.createElement('article'); sec.className='chapter';
+  sec.style.cssText=`--c1:${c.c1};--c2:${c.c2};--v1:${c.v1};--v2:${c.v2}`;
+  const imgs=c.images.map((src,k)=>`<div class="tile reveal" data-g="${ci}" data-i="${k}"><img src="${src}" alt="${c.title} photo ${k+1}" loading="lazy" onerror="this.style.display='none'"><span class="zoom">⤢</span></div>`);
+  const vid=`<div class="tile video reveal" data-v="${ci}"><div class="play"></div><span>${c.videoLabel}</span></div>`;
+  const tiles = c.layout==='a' ? [imgs[0],imgs[1],vid] : [imgs[0],vid,imgs[1]];
+  sec.innerHTML=`<div class="num">0${ci+1}</div>
+    <div><div class="label reveal">${c.label}</div><h3 class="reveal">${c.title}</h3><p class="txt reveal">${c.text}</p>
+    <div class="grid ${c.layout}">${tiles.join('')}</div></div>`;
+  tl.appendChild(sec); galleries[ci]=c.images;
+});
+
+/* ---- scroll reveal ---- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('seen');io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.chapter').forEach(c=>io.observe(c));
+
+/* ---- timeline progress + back to top ---- */
+const fill=$('#fill'), topBtn=$('#top');
+function onScroll(){
+  const r=tl.getBoundingClientRect(), h=r.height-120;
+  const p=Math.min(1,Math.max(0,(innerHeight*.6-r.top)/h));
+  fill.style.height=(p*100)+'%';
+  topBtn.classList.toggle('on',scrollY>600);
+}
+addEventListener('scroll',onScroll,{passive:true}); onScroll();
+topBtn.onclick=()=>scrollTo({top:0,behavior:'smooth'});
+$('#start').onclick=()=>{confetti();if(bgm.paused)playMusic();$('#intro').scrollIntoView({behavior:'smooth'})};
+
+/* ---- lightbox: photo slideshow + video ---- */
+const lb=$('#lb'), stage=$('#stage'), count=$('#count'), autoBtn=$('#auto');
+let cur={g:0,i:0}, timer=null, mode='img';
+function open(){lb.classList.add('open');requestAnimationFrame(()=>lb.classList.add('vis'));document.body.style.overflow='hidden'}
+function close(){lb.classList.remove('vis');stopAuto();setTimeout(()=>{lb.classList.remove('open');stage.innerHTML=''},300);document.body.style.overflow=''}
+function showImg(){
+  const list=galleries[cur.g]; mode='img';
+  stage.innerHTML=`<img src="${list[cur.i]}" alt="" onerror="this.outerHTML='<div class=note>Image not found:<br>${list[cur.i]}<br>Add your photo to this path.</div>'">`;
+  count.textContent=`${cur.i+1} / ${list.length}`;
+  $('#lbp').style.display=$('#lbn').style.display=autoBtn.style.display='';
+}
+function step(d){if(mode!=='img')return;const n=galleries[cur.g].length;cur.i=(cur.i+d+n)%n;showImg()}
+function stopAuto(){clearInterval(timer);timer=null;autoBtn.textContent='▶ Slideshow'}
+autoBtn.onclick=()=>{ if(timer){stopAuto()} else {autoBtn.textContent='❚❚ Pause';timer=setInterval(()=>step(1),2500)} };
+function showVideo(ci){
+  const v=CONFIG.chapters[ci].video; mode='vid';
+  $('#lbp').style.display=$('#lbn').style.display=autoBtn.style.display='none'; count.textContent='';
+  if(!v) stage.innerHTML='<div class="note">No video added yet.<br>Set the <b>video</b> path for this chapter in CONFIG (e.g. "videos/school.mp4" or a YouTube embed link).</div>';
+  else if(/youtube|youtu\.be|vimeo/.test(v)) stage.innerHTML=`<iframe src="${v}" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
+  else stage.innerHTML=`<video src="${v}" controls autoplay></video>`;
+}
+document.addEventListener('click',e=>{
+  const t=e.target.closest('.tile'); if(!t) return;
+  if(t.dataset.v!==undefined){showVideo(+t.dataset.v);open()}
+  else{cur={g:+t.dataset.g,i:+t.dataset.i};showImg();open()}
+});
+$('#lbx').onclick=close; $('#lbp').onclick=()=>step(-1); $('#lbn').onclick=()=>step(1);
+lb.addEventListener('click',e=>{if(e.target===lb)close()});
+addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;
+  if(e.key==='Escape')close(); if(e.key==='ArrowLeft')step(-1); if(e.key==='ArrowRight')step(1)});
+let sx=0; lb.addEventListener('touchstart',e=>sx=e.touches[0].clientX);
+lb.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>50)step(dx<0?1:-1)});
+
+/* ---- music button ---- */
+const bgm=$('#bgm'), mBtn=$('#music'), mTxt=$('#mtxt');
+bgm.src=CONFIG.music; bgm.volume=.6;
+function setMusic(on){mBtn.classList.toggle('playing',on);mTxt.textContent=on?'Pause music':'Play music'}
+function playMusic(){bgm.play().then(()=>setMusic(true)).catch(()=>setMusic(false))}
+mBtn.onclick=()=>{ if(bgm.paused) playMusic(); else {bgm.pause();setMusic(false)} };
+bgm.addEventListener('error',()=>{mTxt.textContent='Add music file'});
+
+/* ---- photo slideshow ---- */
+const photos=CONFIG.photos, DUR=CONFIG.slideSeconds*1000, layers=[$('#l1'),$('#l2')];
+const thumbsBox=$('#thumbs'), bar=$('#bar'), showEl=$('#show'), ppBtn=$('#pp');
+let si=0, front=1, st, playing=true, visible=false;
+$('#show').style.setProperty('--dur',CONFIG.slideSeconds+'s');
+photos.forEach((src,i)=>{
+  const t=document.createElement('div'); t.style.backgroundImage=`url('${src}')`; t.onclick=()=>show(i);
+  thumbsBox.appendChild(t);
+});
+function tick(){
+  clearTimeout(st); bar.classList.remove('run'); void bar.offsetWidth;
+  if(playing&&visible){bar.classList.add('run'); st=setTimeout(()=>show(si+1),DUR)}
+}
+function show(i){
+  si=(i+photos.length)%photos.length;
+  const next=layers[1-front], prev=layers[front];
+  next.style.backgroundImage=`url('${photos[si]}')`;
+  next.classList.remove('on'); void next.offsetWidth; next.classList.add('on'); prev.classList.remove('on');
+  front=1-front;
+  [...thumbsBox.children].forEach((t,k)=>t.classList.toggle('on',k===si));
+  const t=thumbsBox.children[si];
+  thumbsBox.scrollTo({left:t.offsetLeft-thumbsBox.clientWidth/2+t.clientWidth/2,behavior:'smooth'});
+  $('#cnt').textContent=`${si+1} / ${photos.length}`;
+  tick();
+}
+$('#sp').onclick=()=>show(si-1); $('#sn').onclick=()=>show(si+1);
+ppBtn.onclick=()=>{playing=!playing;ppBtn.textContent=playing?'❚❚':'▶';tick()};
+let tx=0; showEl.addEventListener('touchstart',e=>tx=e.touches[0].clientX);
+showEl.addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-tx;if(Math.abs(d)>50)show(si+(d<0?1:-1))});
+addEventListener('keydown',e=>{ if(lb.classList.contains('open')||!visible)return;
+  if(e.key==='ArrowLeft')show(si-1); if(e.key==='ArrowRight')show(si+1)});
+new IntersectionObserver(es=>{visible=es[0].isIntersecting;tick()},{threshold:.3}).observe(showEl);
+show(0);
+
+/* ---- confetti ---- */
+function confetti(){
+  const cv=$('#confetti'),cx=cv.getContext('2d');cv.width=innerWidth;cv.height=innerHeight;
+  const cols=['#a63d63','#e8a0b4','#d9a441','#8b6bb0','#4a8576','#fff'];
+  const ps=Array.from({length:140},()=>({x:Math.random()*cv.width,y:-20-Math.random()*cv.height*.5,r:4+Math.random()*6,
+    c:cols[Math.random()*cols.length|0],vy:2+Math.random()*4,vx:-1.5+Math.random()*3,a:Math.random()*6}));
+  let f=0;(function loop(){cx.clearRect(0,0,cv.width,cv.height);
+    ps.forEach(p=>{p.y+=p.vy;p.x+=p.vx+Math.sin(p.a+=.05);cx.fillStyle=p.c;cx.fillRect(p.x,p.y,p.r,p.r*.6)});
+    if(++f<220)requestAnimationFrame(loop);else cx.clearRect(0,0,cv.width,cv.height)})();
+}
+</script>
+<script src="extras.js"></script> 
+<script src="extras2.js"></script> 
+<script src="playlist.js"></script> 
+<script src="extras3.js"></script> 
+</body>
+</html>
