@@ -32,27 +32,27 @@ var X = {
   // polaroid wall (add as many as you like)
   polTitle: "Pinned-up memories",
   polaroids: [
-    { src: "images/polaroid/p1.jpg", cap: "Best day ever" },
-    { src: "images/polaroid/p2.jpg", cap: "Our trip" },
-    { src: "images/polaroid/p3.jpg", cap: "That smile" },
-    { src: "images/polaroid/p4.jpg", cap: "Festival fun" },
-    { src: "images/polaroid/p5.jpg", cap: "Family time" },
-    { src: "images/polaroid/p6.jpg", cap: "Just us" },
-    { src: "images/polaroid/p7.jpg", cap: "Sweet moments" },
-    { src: "images/polaroid/p8.jpg", cap: "Forever" }
+    { src: CDN+"p1.jpg", cap: "Best day ever" },
+    { src: CDN+"p2.jpg", cap: "Our trip" },
+    { src: CDN+"p3.jpg", cap: "That smile" },
+    { src: CDN+"p4.jpg", cap: "Festival fun" },
+    { src: CDN+"p5.jpg", cap: "Family time" },
+    { src: CDN+"p6.jpg", cap: "Just us" },
+    { src: CDN+"p7.jpg", cap: "Sweet moments" },
+    { src: CDN+"p8.jpg", cap: "Forever" }
   ],
 
   // voice message
   voiceTitle: "A voice message for you",
   voiceFrom: "From someone who loves you",
-  voice: "audio/voice.m4a",
+  voice: VID+"voice.m4a",
 
   // gift box
   giftTitle: "One last surprise",
   giftHint: "pyaar se open karo zara isko",
   giftHeading: "Happy Birthday!",
   giftMessage: "aisa moment recreate karogi mere saath??",
-  giftImage: "images/gift.jpg",            // optional photo, e.g. "images/gift.jpg"
+  giftImage: CDN+"gift.jpg",            // optional photo, e.g. CDN+"gift.jpg"
 
   // balloon game
   balloonTitle: "Pop a balloon, read my message",

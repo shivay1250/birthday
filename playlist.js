@@ -10,12 +10,12 @@
 var P = {
   shuffle: false,          // true = random order
   tracks: [
-    { title: "Song one",   src: "music/song1.mp3" },
-    { title: "Song two",   src: "music/song2.mp3" },
-    { title: "Song three", src: "music/song3.mp3" },
-    { title: "Song four",  src: "music/song4.mp3" },
-    { title: "Song five",  src: "music/song5.mp3" },
-    { title: "Song six",   src: "music/song6.mp3" }
+    { title: "Song one",   src: VID+"song1.mp3" },
+    { title: "Song two",   src: VID+"song2.mp3" },
+    { title: "Song three", src: VID+"song3.mp3" },
+    { title: "Song four",  src: VID+"song4.mp3" },
+    { title: "Song five",  src: VID+"song5.mp3" },
+    { title: "Song six",   src: VID+"song6.mp3" }
     // add more lines like:  { title: "Name", src: "music/file.mp3" },
   ]
 };

@@ -15,42 +15,42 @@ var Z = {
   intro: "Hamari ek wo duniya jisme mujhe khoo jaane ka mnn karta hai... ek aisi life jo sukoon bhari hai tumhare saath",
 
   // the big family portrait at the top
-  hero: { img: "images/world/family.png", emoji: "👨‍👩‍👧", caption: "Our little family, just the way we dreamed it" },
+  hero: { img: CDN+"family.png", emoji: "👨‍👩‍👧", caption: "Our little family, just the way we dreamed it" },
 
   characters: [
-    { img: "images/world/papa.jpg",  icon: "🧑", name: "aadi",   role: "Papa",                      note: "loves anvi and little anvi" },
-    { img: "images/world/mama.jpg",  icon: "👩", name: "anvi",    role: "Mama",                      note: "jo sabka khayal rakhti hai" },
-    { img: "images/world/anvi.png",  icon: "👧", name: "Little Anvi", role: "hamari laadlii", note: "ghar ki don" },
-    { img: "images/world/joint.jpg", icon: "👨‍👩‍👧‍👦", name: "family", role: "our souls", note: "the hearts" }
+    { img: CDN+"papa.jpg",  icon: "🧑", name: "aadi",   role: "Papa",                      note: "loves anvi and little anvi" },
+    { img: CDN+"mama.jpg",  icon: "👩", name: "anvi",    role: "Mama",                      note: "jo sabka khayal rakhti hai" },
+    { img: CDN+"anvi.png",  icon: "👧", name: "Little Anvi", role: "hamari laadlii", note: "ghar ki don" },
+    { img: CDN+"joint.jpg", icon: "👨‍👩‍👧‍👦", name: "family", role: "our souls", note: "the hearts" }
   ],
 
   momentsTitle: "Moments we imagined",
   moments: [
-    { img: "images/world/m1.png", emoji: "🌅", cap: "the morning Anvi woke everyone up" },
-    { img: "images/world/m2.png", emoji: "🍲", cap: "hamari subah" },
-    { img: "images/world/m3.png", emoji: "🎈", cap: "Anvi's birthday in our world" },
-    { img: "images/world/m4.png", emoji: "🌙", cap: "a quiet night on the terrace" }
+    { img: CDN+"m1.png", emoji: "🌅", cap: "the morning Anvi woke everyone up" },
+    { img: CDN+"m2.png", emoji: "🍲", cap: "hamari subah" },
+    { img: CDN+"m3.png", emoji: "🎈", cap: "Anvi's birthday in our world" },
+    { img: CDN+"m4.png", emoji: "🌙", cap: "a quiet night on the terrace" }
   ],
 
   houseTitle: "Walk through our home",
   rooms: [
-    { img: "images/world/kitchen.png", icon: "🍳", name: "Kitchen",     text: "ab ye dekhoo ,aaj madam cook bani hai ,dekhte hai aaj kya banati hai ye madam" },
-    { img: "images/world/living.png",  icon: "🛋️", name: "Living room", text: "haan ab ye yahan baithi hai apna saara taam-jhaam leke" },
-    { img: "images/world/kidroom.png", icon: "🧸", name: "Anvi's room", text: "din bhar kabhi idhar kabhi udhar ,bss samaan failana hai in madam ko" },
-    { img: "images/world/terrace.png", icon: "🌇", name: "Terrace",     text: "anvi ko upar se bulao ,dekho wahan dhoop main kya kar rahi hai ab ye ladki" }
+    { img: CDN+"kitchen.png", icon: "🍳", name: "Kitchen",     text: "ab ye dekhoo ,aaj madam cook bani hai ,dekhte hai aaj kya banati hai ye madam" },
+    { img: CDN+"living.png",  icon: "🛋️", name: "Living room", text: "haan ab ye yahan baithi hai apna saara taam-jhaam leke" },
+    { img: CDN+"kidroom.png", icon: "🧸", name: "Anvi's room", text: "din bhar kabhi idhar kabhi udhar ,bss samaan failana hai in madam ko" },
+    { img: CDN+"terrace.png", icon: "🌇", name: "Terrace",     text: "anvi ko upar se bulao ,dekho wahan dhoop main kya kar rahi hai ab ye ladki" }
   ],
 
   dayTitle: "A day in our world",
   day: [
-    { img: "images/world/morning.png",   icon: "🌅", time: "Morning",   text: "tumhare saath ek aisi subha..." },
-    { img: "images/world/afternoon.png", icon: "☀️", time: "Afternoon", text: "our busy time ." },
-    { img: "images/world/evening.png",   icon: "🌇", time: "Evening",   text: "ek aisi shopping..." },
-    { img: "images/world/night.jpg",     icon: "🌙", time: "Night",     text: "good night mere dono bubu.." }
+    { img: CDN+"morning.png",   icon: "🌅", time: "Morning",   text: "tumhare saath ek aisi subha..." },
+    { img: CDN+"afternoon.png", icon: "☀️", time: "Afternoon", text: "our busy time ." },
+    { img: CDN+"evening.png",   icon: "🌇", time: "Evening",   text: "ek aisi shopping..." },
+    { img: CDN+"night.jpg",     icon: "🌙", time: "Night",     text: "good night mere dono bubu.." }
   ],
 
   anviTitle: "sunoo,hamari anvii kya keh rahi hai",
-  anviImg: "images/world/anvi.png",
-  drawing: { img: "images/world/anvi-drawing.png", caption: "Anvi's drawing of our family" },
+  anviImg: CDN+"anvi.png",
+  drawing: { img: CDN+"anvi-drawing.png", caption: "Anvi's drawing of our family" },
   anviSays: [
      "mamma dadda kahan haii",
      "mumma ,mai bor ho rahi hu ,chalo khelo mere saath",

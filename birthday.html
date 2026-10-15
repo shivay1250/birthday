@@ -190,34 +190,37 @@ canvas#confetti{position:fixed;inset:0;pointer-events:none;z-index:200}
 
 <script>
 /* =====================  EDIT YOUR CONTENT HERE  ===================== */
+const CDN = "https://res.cloudinary.com/hveupwzl/image/upload/q_auto,w_1600/";
+const VID = "https://res.cloudinary.com/hveupwzl/video/upload/";
+
 const CONFIG = {
   name: "Tanya",
   message: "wishing you a very happy birthday my anvi — want to make your this day very special ,always be happy .",
   footer: "Happy Birthday! ♥ Made with love",
   // background music file (mp3)
-  music: "music/song.mp3",
+  music: VID+"song.mp3",
   // slideshow photos: auto-generates images/photos/photo1.jpg ... photo30.jpg
   // change 30 to your photo count, or replace with your own list of file names
-  photos: Array.from({length:30},(_,i)=>`images/photos/photo${i+1}.jpg`),
+  photos: Array.from({length:30},(_,i)=>CDN+`photo${i+1}.jpg`),
   slideSeconds: 4,
   // hero background slideshow (put image paths here; leave [] for gradient)
-  heroImages: ["images/hero1.jpg","images/hero2.jpg","images/hero3.jpg"],
+  heroImages: [CDN+"hero1.jpg",CDN+"hero2.jpg",CDN+"hero3.jpg"],
   chapters: [
     {label:"The Beginning", title:"Childhood", layout:"a", c1:"#fbe4e8", c2:"#a63d63", v1:"#c06082", v2:"#e8a0b4",
      text:"the earliest snapshots: favourite toys, tiny adventures, family laughter, and the moments that first made her sparkle.",
-     images:["images/child1.jpg","images/child2.jpg"], videoLabel:"add a child video ", video:"videos/kid.mp4"},
+     images:[CDN+"child1.jpg",CDN+"child2.jpg"], videoLabel:"add a child video ", video:VID+"kid.mp4"},
     {label:"Growing Curious", title:"School years", layout:"b", c1:"#f7e8d4", c2:"#a8742a", v1:"#b98a48", v2:"#e5c27c",
      text:"school-day smiles, first friendships, proud achievements, handwritten notes, and all the lessons that shaped her.",
-     images:["images/school1.jpg","images/school2.jpg"], videoLabel:"Add a school video", video:"videos/child.mp4"},
+     images:[CDN+"school1.jpg",CDN+"school2.jpg"], videoLabel:"Add a school video", video:VID+"child.mp4"},
     {label:"Finding Her Own Voice", title:"Teenage years", layout:"a", c1:"#e6e0f2", c2:"#6f4f9a", v1:"#8b6bb0", v2:"#bb98d2",
      text:"the music, friendships, dreams, inside jokes, creative experiments, and unforgettable days that defined these years.",
-     images:["images/teen1.jpg","images/teen2.jpg"], videoLabel:"Add a teen video", video:"videos/teen.mp4"},
+     images:[CDN+"teen1.jpg",CDN+"teen2.jpg"], videoLabel:"Add a teen video", video:VID+"teen.mp4"},
     {label:"Moments To Celebrate", title:"Milestones", layout:"b", c1:"#dcefe8", c2:"#2f6f61", v1:"#4a8576", v2:"#8fbfb2",
      text:"the proudest moments, brave beginnings, personal wins, meaningful places, and all the times she made her dreams real.",
-     images:["images/mile1.jpg","images/mile2.jpg"], videoLabel:"add", video:"videos/mile.mp4"},
+     images:[CDN+"mile1.jpg",CDN+"mile2.jpg"], videoLabel:"add", video:VID+"mile.mp4"},
     {label:"Still Becoming", title:"Adulthood", layout:"a", c1:"#f6e0da", c2:"#a8503f", v1:"#b86a58", v2:"#e0a090",
      text:"the person she is today: her confidence, her joys, the people she loves, and every new adventure still ahead.",
-     images:["images/adult1.jpg","images/adult2.jpg"], videoLabel:"add", video:"videos/adult.mp4"}
+     images:[CDN+"adult1.jpg",CDN+"adult2.jpg"], videoLabel:"add", video:VID+"adult.mp4"}
   ]
 };
 /* ==================================================================== */
@@ -300,7 +303,7 @@ autoBtn.onclick=()=>{ if(timer){stopAuto()} else {autoBtn.textContent='❚❚ Pa
 function showVideo(ci){
   const v=CONFIG.chapters[ci].video; mode='vid';
   $('#lbp').style.display=$('#lbn').style.display=autoBtn.style.display='none'; count.textContent='';
-  if(!v) stage.innerHTML='<div class="note">No video added yet.<br>Set the <b>video</b> path for this chapter in CONFIG (e.g. "videos/school.mp4" or a YouTube embed link).</div>';
+  if(!v) stage.innerHTML='<div class="note">No video added yet.<br>Set the <b>video</b> path for this chapter in CONFIG (e.g. VID+"school.mp4" or a YouTube embed link).</div>';
   else if(/youtube|youtu\.be|vimeo/.test(v)) stage.innerHTML=`<iframe src="${v}" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
   else stage.innerHTML=`<video src="${v}" controls autoplay></video>`;
 }
